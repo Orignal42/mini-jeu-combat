@@ -1,10 +1,8 @@
 <?php
- function chargerClasse($classname)
- {
-   require "class/". $classname.'.php';
- }
- 
- spl_autoload_register('chargerClasse');
+require_once(__DIR__."/config/db.php");
+require_once(__DIR__."/config/autoload.php");
+
+
 
 session_start();
 
@@ -14,8 +12,7 @@ if (isset($_GET['deconnexion']))
   header('Location: .');
   exit();
 }
-$db = new PDO('mysql:host=127.0.0.1;dbname=Combat','root','');
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
 
 $manager = new PersonnagesManager($db);
 
