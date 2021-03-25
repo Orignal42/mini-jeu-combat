@@ -100,7 +100,7 @@ class PersonnagesManager
     $q->bindValue(':timeEndormi', $perso->timeEndormi(), PDO::PARAM_INT);
     $q->bindValue(':atout', $perso->atout(), PDO::PARAM_INT);
     $q->bindValue(':id', $perso->id(), PDO::PARAM_INT);
-    
+        
     $q->execute();
   }
 }
