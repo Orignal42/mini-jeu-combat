@@ -105,9 +105,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           
           break;
         
-        case Personnage::PERSO_ENDORMI :
-          $message = 'Vous êtes endormi, vous ne pouvez pas frapper de personnage !';
-          break;
+        
       }
     }
   }
@@ -166,6 +164,20 @@ elseif (isset($_GET['ensorceler']))
     }
   }
 }
+
+function getColorCard($perso){
+  switch ($perso->type()) {
+    case 'guerrier':
+      return 'bg-danger';
+      break;
+    case 'magicien':
+      return 'bg-info';
+      break;
+    case 'archer':
+      return 'bg-warning';
+      break;
+  };
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -190,7 +202,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     <fieldset>
     <div class="row info">
       <legend>Mes informations</legend>
-      <div class="card">
+      <div class="card <?= getColorCard($perso)?>">
       <p>
         Type : <?= ucfirst($perso->type()) ?><br />
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
@@ -207,11 +219,11 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
       <legend>Qui attaquer ?</legend>
       <p>
       
-      <div class="row">
-      <div class=col-md-12>
-   
-      
+    
+    
+     
 <?php
+
 // On récupère tous les personnages par ordre alphabétique, dont le nom est différent de celui de notre personnage (on va pas se frapper nous-même :p).
 $retourPersos = $manager->getList($perso->nom());
 
@@ -222,30 +234,20 @@ if (empty($retourPersos))
 
 else
 {
-  if ($perso->estEndormi())
-  {
-    echo 'Un magicien vous a endormi ! Vous allez vous réveiller dans ', $perso->reveil(), '.';
-  }
-  
-  else
-  {
     foreach ($retourPersos as $unPerso)
-    {
+    { ?>
+      <div class="card <?= getColorCard($unPerso)?>">
+      <?php
       echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | type : ', $unPerso->type(), ')';
-      
-      // On ajoute un lien pour lancer un sort si le personnage est un magicien.
-      if ($perso->type() == 'magicien')
-      {
-        echo ' | <a href="?ensorceler=', $unPerso->id(), '">Lancer un sort</a>';
-      }
-      
-      echo '<br />';
+    
+     
+    
+      echo '</div> </br>';
     }
   }
-}
+
 ?>
-</div>
-</div>
+
 
 
       </p>
