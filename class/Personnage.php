@@ -14,7 +14,7 @@ abstract class Personnage
   const PERSONNAGE_ENSORCELE = 4; // Constante renvoyée par la méthode `lancerUnSort` (voir classe Magicien) si on a bien ensorcelé un personnage.
   const PAS_DE_MAGIE = 5; // Constante renvoyée par la méthode `lancerUnSort` (voir classe Magicien) si on veut jeter un sort alors que la magie du magicien est à 0.
   const PERSO_ENDORMI = 6; // Constante renvoyée par la méthode `frapper` si le personnage qui veut frapper est endormi.
-  
+ 
   public function __construct(array $donnees)
   {
     $this->hydrate($donnees);
@@ -25,23 +25,9 @@ abstract class Personnage
   {
     return $this->timeEndormi > time();
   }
-  
-  public function frapper(Personnage $perso)
-  {
-    if ($perso->id == $this->id)
-    {
-      return self::CEST_MOI;
-    }
-    
-    if ($this->estEndormi())
-    {
-      return self::PERSO_ENDORMI;
-    }
-    
-    // On indique au personnage qu'il doit recevoir des dégâts.
-    // Puis on retourne la valeur renvoyée par la méthode : self::PERSONNAGE_TUE ou self::PERSONNAGE_FRAPPE.
-    return $perso->recevoirDegats();
-  }
+ 
+  abstract public function frapper(Personnage $perso);
+
   
   public function hydrate(array $donnees)
   {
@@ -61,9 +47,9 @@ abstract class Personnage
     return !empty($this->nom);
   }
   
-  public function recevoirDegats()
+  public function recevoirDegats($force)
   {
-    $this->degats += 5;
+    $this->degats += 5*$force;
     
     // Si on a 100 de dégâts ou plus, on supprime le personnage de la BDD.
     if ($this->degats >= 100)

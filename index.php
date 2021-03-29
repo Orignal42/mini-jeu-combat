@@ -18,7 +18,7 @@ require_once("combat.php");
     <meta charset="utf-8" />
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-<link rel="stylesheet"   href="./css/main.css" > 
+<link rel="stylesheet"   href="css/main.css" > 
   </head>
   <body>
 <form action="" method="post">
@@ -41,4 +41,5 @@ require_once("combat.php");
 if (isset($perso)) // Si on a créé un personnage, on le stocke dans une variable session afin d'économiser une requête SQL.
 {
 $_SESSION['perso'] = $perso;
+
 }?>

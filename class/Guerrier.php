@@ -1,38 +1,18 @@
 <?php
 class Guerrier extends Personnage
 {
-  public function recevoirDegats()
+  public function frapper(Personnage $perso)
   {
-    if ($this->degats >= 0 && $this->degats <= 25)
-    {
-      $this->atout = 4;
-    }
-    elseif ($this->degats > 25 && $this->degats <= 50)
-    {
-      $this->atout = 3;
-    }
-    elseif ($this->degats > 50 && $this->degats <= 75)
-    {
-      $this->atout = 2;
-    }
-    elseif ($this->degats > 75 && $this->degats <= 90)
-    {
-      $this->atout = 1;
-    }
-    else
-    {
-      $this->atout = 0;
-    }
-    
-    $this->degats += 5 - $this->atout;
-    
-    // Si on a 100 de dégâts ou plus, on supprime le personnage de la BDD.
-    if ($this->degats >= 100)
-    {
-      return self::PERSONNAGE_TUE;
-    }
-    
-    // Sinon, on se contente de mettre à jour les dégâts du personnage.
-    return self::PERSONNAGE_FRAPPE;
+      if ($perso->id == $this->id) {
+          return self::CEST_MOI;
+      }
+      // On indique au personnage qu'il doit recevoir des dégâts.
+      // Puis on retourne la valeur renvoyée par la méthode : self::PERSONNAGE_TUE ou self::PERSONNAGE_FRAPPE.
+
+      if ($perso->type == 'archer') {
+          return $perso->recevoirDegats(2);
+      } else {
+          return $perso->recevoirDegats(1);
+      }
   }
 }

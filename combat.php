@@ -24,6 +24,9 @@ if (isset($_POST['creer']) && isset($_POST['nom'])) // Si on a voulu créer un p
     case 'guerrier' :
       $perso = new Guerrier(['nom' => $_POST['nom']]);
       break;
+      case 'archer' :
+        $perso = new Archer(['nom' => $_POST['nom']]);
+        break;
     
     default :
       $message = 'Le type du personnage est invalide.';
@@ -187,31 +190,17 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     <fieldset>
     <div class="row info">
       <legend>Mes informations</legend>
-      <div class="card ">
+      <div class="card">
       <p>
         Type : <?= ucfirst($perso->type()) ?><br />
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
         Dégâts : <?= $perso->degats() ?><br />
      
-<?php
 
-// On affiche l'atout du personnage suivant son type.
-switch ($perso->type())
-{
-  case 'magicien' :
-    echo 'Magie : ';
-    break;
-  
-  case 'guerrier' :
-    echo 'Protection : ';
-    break;
-}
-
-echo $perso->atout();
-?>
+ </div>
+      </div>
       </p>
-      </div>
-      </div>
+     
     </fieldset>
    
     <fieldset>

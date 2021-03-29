@@ -69,6 +69,7 @@ class PersonnagesManager
     {
       case 'guerrier': return new Guerrier($perso);
       case 'magicien': return new Magicien($perso);
+      case 'archer': return new Archer($perso);
       default: return null;
     }
   }
@@ -86,6 +87,7 @@ class PersonnagesManager
       {
         case 'guerrier': $persos[] = new Guerrier($donnees); break;
         case 'magicien': $persos[] = new Magicien($donnees); break;
+        case 'archer': $persos[] = new Archer($donnees); break;
       }
     }
     
